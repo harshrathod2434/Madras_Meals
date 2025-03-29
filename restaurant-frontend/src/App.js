@@ -35,12 +35,16 @@ function App() {
   };
 
   const placeOrder = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("⚠️ Please login to place an order");
+      return;
+    }
+  
     const payload = {
       items: cart.map(({ menuItem, quantity }) => ({ menuItem, quantity }))
     };
-
-    const token = localStorage.getItem('token');
-
+  
     fetch('http://localhost:5001/api/orders', {
       method: 'POST',
       headers: {
