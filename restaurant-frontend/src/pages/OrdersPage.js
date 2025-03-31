@@ -6,12 +6,15 @@ import React, { useEffect, useState } from 'react';
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
+  
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
+    console.log("JWT token:", token);
     const token = localStorage.getItem('token');
     if (!token) return;
   
-    fetch('http://localhost:5001/api/orders', {
+    fetch('http://localhost:5001/api/orders/myorders', {
       headers: {
         Authorization: `Bearer ${token}`
       }
