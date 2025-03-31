@@ -84,9 +84,10 @@ function App() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar cartCount={cart.length} user={user} handleLogout={handleLogout} />
 
+      <main className="flex-1">
       <Routes>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage setUser={setUser} />} />
@@ -117,8 +118,10 @@ function App() {
       </Routes>
 
       {cart.length > 0 && <FloatingCart cart={cart} />}
+      </main>
       <Footer />
-    </>
+      
+    </div>
   );
 }
 

@@ -8,7 +8,7 @@ const OrdersPage = () => {
     console.log("JWT token:", token);
     if (!token) return;
 
-    fetch('http://localhost:5001/api/orders/myorders', {
+    fetch('http://localhost:5001/api/orders', {
       headers: {
         Authorization: `Bearer ${token}`
       }
