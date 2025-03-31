@@ -1,0 +1,5 @@
+restaurant-frontend/node_modules/
+backend/node_modules/
+*.env
+restaurant-frontend/build/
+restaurant-frontend/dist/
