@@ -37,7 +37,7 @@ function App() {
   const placeOrder = () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert("⚠️ Please login to place an order");
+      alert('Please log in to place an order.');
       return;
     }
   
@@ -60,6 +60,7 @@ function App() {
       })
       .catch(() => alert('❌ Order failed!'));
   };
+  
 
   // 👇 Auto-login on refresh
   useEffect(() => {

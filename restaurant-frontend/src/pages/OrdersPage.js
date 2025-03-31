@@ -8,11 +8,19 @@ const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/orders')
+    const token = localStorage.getItem('token');
+    if (!token) return;
+  
+    fetch('http://localhost:5001/api/orders', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
       .then(data => setOrders(data))
-      .catch(() => alert('Failed to fetch orders'));
+      .catch(() => setOrders([]));
   }, []);
+  
 
   return (
     <div className="max-w-4xl mx-auto py-16 px-6">
