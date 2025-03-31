@@ -19,7 +19,7 @@ const About = () => {
         {/* Image */}
         <div className="flex justify-center">
           <img
-            src="/images/about.jpg"
+            src={`${process.env.PUBLIC_URL}/images/about.jpg`}
             alt="About Madras Meals"
             className="rounded-2xl shadow-lg w-full max-w-md object-cover"
           />

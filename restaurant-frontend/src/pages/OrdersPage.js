@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
-  const token = localStorage.getItem("token"); // ✅ Declare once, at the top
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    console.log("JWT token:", token);
     if (!token) return;
 
     fetch('http://localhost:5001/api/orders', {
@@ -26,18 +25,25 @@ const OrdersPage = () => {
         <p className="text-gray-600 text-center">You haven't placed any orders yet.</p>
       ) : (
         <div className="space-y-6">
-          {Array.isArray(orders) && orders.map(order => (
-            <div key={order._id} className="bg-white p-6 rounded-lg shadow">
-              <p className="text-sm text-gray-500 mb-2">
-                <strong>Order ID:</strong> {order._id}
-              </p>
-              <ul className="text-gray-800 mb-4 space-y-1">
-                {order.items.map((item, idx) => (
-                  <li key={idx} className="text-sm">
-                    🍽️ {item.menuItem?.name || 'Unknown item'} × {item.quantity}
-                  </li>
-                ))}
-              </ul>
+          {orders.map(order => (
+            <div key={order._id} className="bg-white p-6 rounded-lg shadow relative">
+
+              
+              <div className="flex justify-between mb-4 text-sm text-gray-800">
+                <div>
+                  {order.items.map((item, idx) => (
+                    <div key={idx}>
+                      🍽️ {item.menuItem?.name || 'Unknown item'} × {item.quantity}
+                    </div>
+                  ))}
+                </div>
+                <div className="text-right text-gray-500">
+                  <div>{new Date(order.createdAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}</div>
+                  <div>{new Date(order.createdAt).toLocaleTimeString('en-IN', { timeStyle: 'short' })}</div>
+                </div>
+              </div>
+
+
               <p className="font-semibold">Total: ₹{order.totalAmount}</p>
               <p className="text-sm text-green-600 mt-1">Status: {order.status || 'Placed'}</p>
             </div>
