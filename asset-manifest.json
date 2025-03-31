@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Madras_Meals/static/css/main.427eba4e.css",
-    "main.js": "/Madras_Meals/static/js/main.49871fb5.js",
+    "main.js": "/Madras_Meals/static/js/main.f16e4145.js",
     "static/js/453.a9e75f56.chunk.js": "/Madras_Meals/static/js/453.a9e75f56.chunk.js",
     "index.html": "/Madras_Meals/index.html",
     "main.427eba4e.css.map": "/Madras_Meals/static/css/main.427eba4e.css.map",
-    "main.49871fb5.js.map": "/Madras_Meals/static/js/main.49871fb5.js.map",
+    "main.f16e4145.js.map": "/Madras_Meals/static/js/main.f16e4145.js.map",
     "453.a9e75f56.chunk.js.map": "/Madras_Meals/static/js/453.a9e75f56.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.427eba4e.css",
-    "static/js/main.49871fb5.js"
+    "static/js/main.f16e4145.js"
   ]
 }
