@@ -13,8 +13,16 @@ const OrdersPage = () => {
       }
     })
       .then(res => res.json())
-      .then(data => setOrders(data))
-      .catch(() => setOrders([]));
+      .then(data => {
+        console.log("Fetched orders:", data);
+        // Assuming the API returns { orders: [...] }
+        const parsedOrders = Array.isArray(data.orders) ? data.orders : [];
+        setOrders(parsedOrders);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch orders:", error);
+        setOrders([]);
+      });
   }, [token]);
 
   return (
@@ -27,8 +35,6 @@ const OrdersPage = () => {
         <div className="space-y-6">
           {orders.map(order => (
             <div key={order._id} className="bg-white p-6 rounded-lg shadow relative">
-
-              
               <div className="flex justify-between mb-4 text-sm text-gray-800">
                 <div>
                   {order.items.map((item, idx) => (
@@ -42,8 +48,6 @@ const OrdersPage = () => {
                   <div>{new Date(order.createdAt).toLocaleTimeString('en-IN', { timeStyle: 'short' })}</div>
                 </div>
               </div>
-
-
               <p className="font-semibold">Total: ₹{order.totalAmount}</p>
               <p className="text-sm text-green-600 mt-1">Status: {order.status || 'Placed'}</p>
             </div>
