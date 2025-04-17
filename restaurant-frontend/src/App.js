@@ -83,6 +83,8 @@ function App() {
     setUser(null);
   };
 
+  console.log("Logged in user:", user);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar cartCount={cart.length} user={user} handleLogout={handleLogout} />
