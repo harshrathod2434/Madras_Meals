@@ -9,6 +9,7 @@ const menuData = [
   {
     name: "Masala Dosa",
     price: 120,
+    image: "/images/masala_dosa.jpg", // Add image path here
     ingredients: [
       { name: "Rice", quantity: 75 },
       { name: "Urad Dal", quantity: 25 },
@@ -25,6 +26,7 @@ const menuData = [
   {
     name: "Plain Dosa",
     price: 100,
+    image: "/images/plain_dosa.jpg", // Add image path here
     ingredients: [
       { name: "Rice", quantity: 75 },
       { name: "Urad Dal", quantity: 25 },
@@ -35,6 +37,7 @@ const menuData = [
   {
     name: "Idli",
     price: 80,
+    image: "/images/idli.jpg", // Add image path here
     ingredients: [
       { name: "Rice", quantity: 70 },
       { name: "Urad Dal", quantity: 30 },
@@ -45,6 +48,7 @@ const menuData = [
   {
     name: "Medu Vada",
     price: 90,
+    image: "/images/medu_vada.jpg", // Add image path here
     ingredients: [
       { name: "Urad Dal", quantity: 75 },
       { name: "Black Pepper", quantity: 2 },
@@ -55,6 +59,7 @@ const menuData = [
   {
     name: "Upma",
     price: 85,
+    image: "/images/upma.jpg", // Add image path here
     ingredients: [
       { name: "Rava", quantity: 100 },
       { name: "Mustard Seeds", quantity: 5 },
@@ -67,6 +72,7 @@ const menuData = [
   {
     name: "Pongal",
     price: 90,
+    image: "/images/pongal.jpg", // Add image path here
     ingredients: [
       { name: "Rice", quantity: 100 },
       { name: "Moong Dal", quantity: 50 },
@@ -79,6 +85,7 @@ const menuData = [
   {
     name: "Sambar",
     price: 70,
+    image: "/images/sambar.jpg", // Add image path here
     ingredients: [
       { name: "Toor Dal", quantity: 100 },
       { name: "Tamarind Paste", quantity: 15 },
@@ -91,6 +98,7 @@ const menuData = [
   {
     name: "Rasam Rice",
     price: 60,
+    image: "/images/rasam_rice.jpg", // Add image path here
     ingredients: [
       { name: "Rice", quantity: 100 },
       { name: "Tomatoes", quantity: 100 },
@@ -103,6 +111,7 @@ const menuData = [
   {
     name: "Curd Rice",
     price: 70,
+    image: "/images/curd_rice.jpg", // Add image path here
     ingredients: [
       { name: "Rice", quantity: 100 },
       { name: "Curd", quantity: 100 },
@@ -113,6 +122,7 @@ const menuData = [
   {
     name: "Filter Coffee",
     price: 40,
+    image: "/images/filter_coffee.jpg", // Add image path here
     ingredients: [
       { name: "Coffee Powder", quantity: 10 },
       { name: "Milk", quantity: 150 },
@@ -150,7 +160,6 @@ const inventoryData = [
   { name: "Ghee", quantity: 3000, unit: "grams", threshold: 500 },
   { name: "Coconut", quantity: 1000, unit: "grams", threshold: 100 },
   { name: "Roasted Chana Dal", quantity: 1000, unit: "grams", threshold: 100 }
-
 ];
 
 const seedData = async () => {
