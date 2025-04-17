@@ -18,7 +18,14 @@ function Navbar({ cartCount, user, handleLogout }) {
         <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-blue-600">About</button>
         <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-blue-600">Contact</button>
         <Link to="/cart" className="text-gray-700 hover:text-blue-600">Cart ({cartCount})</Link>
-        <Link to="/orders" className="text-gray-700 hover:text-blue-600">My Orders</Link>
+
+        {user && !user.isAdmin && (
+          <Link to="/orders" className="text-gray-700 hover:text-blue-600">My Orders</Link>
+        )}
+        
+        {user && user.isAdmin && (
+          <Link to="/admin" className="text-gray-700 hover:text-blue-600">Admin Dashboard</Link>
+        )}
 
         {user ? (
           <>

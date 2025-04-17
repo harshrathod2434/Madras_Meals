@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
   gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
   address: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false }  // Add this line to allow admin users
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

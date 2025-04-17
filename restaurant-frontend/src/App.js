@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -12,7 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import CartPage from './pages/CartPage';
 import OrdersPage from './pages/OrdersPage';
-import PrivateRoute from './components/PrivateRoute';
+import AdminDashboard from './pages/AdminDashboard'; // Import AdminDashboard
+import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
 
 function App() {
   const [user, setUser] = useState(null);
@@ -88,39 +88,46 @@ function App() {
       <Navbar cartCount={cart.length} user={user} handleLogout={handleLogout} />
 
       <main className="flex-1">
-      <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage setUser={setUser} />} />
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+          
+          {/* Regular routes */}
+          <Route path="/" element={
+            <>
+              <Hero />
+              <MenuGrid cart={cart} setCart={setCart} />
+              <About />
+              <Contact />
+            </>
+          } />
 
-        <Route path="/" element={
-          <>
-            <Hero />
-            <MenuGrid cart={cart} setCart={setCart} />
-            <About />
-            <Contact />
-          </>
-        } />
+          <Route path="/cart" element={
+            <CartPage
+              cart={cart}
+              removeFromCart={removeFromCart}
+              placeOrder={placeOrder}
+              updateQuantity={updateQuantity}
+            />
+          } />
 
-        <Route path="/cart" element={
-          <CartPage
-            cart={cart}
-            removeFromCart={removeFromCart}
-            placeOrder={placeOrder}
-            updateQuantity={updateQuantity}
-          />
-        } />
+          <Route path="/orders" element={
+            <PrivateRoute user={user}>
+              <OrdersPage />
+            </PrivateRoute>
+          } />
 
-        <Route path="/orders" element={
-          <PrivateRoute user={user}>
-            <OrdersPage />
-          </PrivateRoute>
-        } />
-      </Routes>
+          {/* Admin route */}
+          <Route path="/admin" element={
+            <PrivateRoute user={user} adminOnly={true}>
+              <AdminDashboard />
+            </PrivateRoute>
+          } />
+        </Routes>
 
-      {cart.length > 0 && <FloatingCart cart={cart} />}
+        {cart.length > 0 && <FloatingCart cart={cart} />}
       </main>
       <Footer />
-      
     </div>
   );
 }

@@ -9,6 +9,8 @@ const LoginPage = ({ setUser }) => {
     password: ''
   });
 
+  const [isAdmin, setIsAdmin] = useState(false); // NEW
+
   const handleChange = (e) => {
     setCredentials(prev => ({
       ...prev,
@@ -19,7 +21,11 @@ const LoginPage = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch('http://localhost:5001/api/auth/login', {
+    const endpoint = isAdmin
+      ? 'http://localhost:5001/api/auth/admin-login'
+      : 'http://localhost:5001/api/auth/login';
+
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
@@ -31,7 +37,7 @@ const LoginPage = ({ setUser }) => {
       alert('✅ Logged in successfully!');
       localStorage.setItem('token', data.token);
       setUser(data.user);
-      navigate('/');
+      navigate(isAdmin ? '/admin' : '/');
     } else {
       alert(`❌ ${data.message || 'Login failed'}`);
     }
@@ -60,6 +66,16 @@ const LoginPage = ({ setUser }) => {
           onChange={handleChange}
           required
         />
+
+        {/* Admin Login Toggle */}
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={isAdmin}
+            onChange={() => setIsAdmin(!isAdmin)}
+          />
+          <label>Login as Admin</label>
+        </div>
 
         <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">
           Login
