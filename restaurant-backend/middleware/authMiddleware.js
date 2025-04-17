@@ -12,8 +12,15 @@ const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select('-password');
-    next();
+    const user = await User.findById(decoded.id).select('-password');
+    req.user = user;
+
+    // Check if the user is an admin
+    if (user.isAdmin) {
+      next(); // proceed to next middleware or route handler
+    } else {
+      return res.status(403).json({ message: 'Forbidden: Admins only' });
+    }
   } catch (err) {
     return res.status(401).json({ message: 'Unauthorized: Invalid token' });
   }

@@ -20,28 +20,29 @@ const LoginPage = ({ setUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const endpoint = isAdmin
       ? 'http://localhost:5001/api/auth/admin-login'
       : 'http://localhost:5001/api/auth/login';
-
+  
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
     });
-
+  
     const data = await res.json();
-
+  
     if (res.ok) {
       alert('✅ Logged in successfully!');
       localStorage.setItem('token', data.token);
-      setUser(data.user);
+      setUser(data.user);  // Ensure user data includes isAdmin flag
       navigate(isAdmin ? '/admin' : '/');
     } else {
       alert(`❌ ${data.message || 'Login failed'}`);
     }
   };
+  
 
   return (
     <div className="max-w-md mx-auto mt-12 p-6 bg-white shadow-md rounded-lg">
