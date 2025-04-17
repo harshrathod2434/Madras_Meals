@@ -132,7 +132,7 @@ const menuData = [
 ];
 
 const inventoryData = [
-  { name: "Rice", quantity: 10000, unit: "grams", threshold: 500 },
+  { name: "Rice", quantity: 19999, unit: "grams", threshold: 500 },
   { name: "Urad Dal", quantity: 5000, unit: "grams", threshold: 500 },
   { name: "Moong Dal", quantity: 3000, unit: "grams", threshold: 500 },
   { name: "Toor Dal", quantity: 5000, unit: "grams", threshold: 500 },
