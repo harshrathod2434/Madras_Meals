@@ -16,6 +16,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', require('./routes/adminRoutes'));
 
 // Routes (you’ll import these later)
 app.get('/', (req, res) => {
