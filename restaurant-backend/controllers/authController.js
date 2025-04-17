@@ -1,89 +1,94 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const jwt   = require('jsonwebtoken');
+const User  = require('../models/User');
 
-// Register
+// Register (unchanged)
 const registerUser = async (req, res) => {
-  try {
-    const { name, age, gender, address, email, password } = req.body;
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'Email already registered' });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = await User.create({
-      name, age, gender, address, email, password: hashedPassword
-    });
-
-    res.status(201).json({ message: 'User registered successfully' });
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Registration failed' });
-  }
+  // … your existing code …
 };
 
-// Login
+// Login for regular users
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '7d'
-    });
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: '7d' }
+    );
 
+    // Include isAdmin here
     res.json({
       token,
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        isAdmin: user.isAdmin
       }
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Login failed' });
   }
 };
 
-// Admin Login
+// Login for admins only
 const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    const user = await User.findOne({ email, isAdmin: true }); // Ensure isAdmin is true
+    const user = await User.findOne({ email, isAdmin: true });
     if (!user) return res.status(400).json({ message: 'Not an admin' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
-    const token = jwt.sign({ id: user._id, isAdmin: true }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user._id, isAdmin: true }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
 
+    // Include isAdmin here too
     res.json({
       token,
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        isAdmin: true
       }
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Login failed' });
   }
 };
 
+// New: Get current user (for /api/auth/me)
+const getCurrentUser = (req, res) => {
+  const user = req.user;  // set by protect middleware
+  if (!user) return res.status(404).json({ message: 'User not found' });
+
+  res.json({
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin
+    }
+  });
+};
+
 module.exports = {
   registerUser,
   loginUser,
-  adminLogin // Export the new admin login function
+  adminLogin,
+  getCurrentUser     // <-- export it
 };
